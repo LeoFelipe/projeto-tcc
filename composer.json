@@ -1,0 +1,25 @@
+{
+    "name":             "LeoFelipe/implant",
+    "description":      "Framework para Desenvolvimento de Softwares de Negócios.",
+    "keywords":         ["framework", "implant", "livre"],
+    "homepage":         "https://github.com/LeoFelipe",
+    "time":             "2014-06-01",
+    "license":          "MIT",
+    "authors": [
+        {
+            "name":         "Leonardo Felipe [LeoFelipe]",
+            "email":        "leonardo.fdns@gmail.com",
+            "homepage":     "https://github.com/LeoFelipe",
+            "role":         "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+	"doctrine/orm": "2.4.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/App/"
+        }
+    }
+}

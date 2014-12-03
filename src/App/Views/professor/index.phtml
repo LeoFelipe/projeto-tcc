@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cadastro de Professores</title>
+</head>
+<body>
+    <h1>Cadastro de Professores</h1>
+    <a href="/tcc">Voltar Index</a>
+    ###
+    <a href="/tcc/professor/cadastrar">Cadastro de Professor</a>
+    <hr>
+    <table>
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Ações</th>
+            <th>Turmas</th>
+        </tr>
+        </thead>
+        <tbody>
+            <?php foreach($this->professores as $professor): ?>
+                <tr>
+                    <td><?=$professor->getNome()?></td>
+                    <td>
+                        <a title="Editar ID: <?=$professor->getId()?>" href="/tcc/professor/editar/id/<?=$professor->getId()?>">Editar</a>
+                         | 
+                        <a title="Excluir ID: <?=$professor->getId()?>" href="/tcc/professor/excluir/id/<?=$professor->getId()?>">Excluir</a>
+                    </td>
+                    <td>
+                        <form action="/tcc/professor/excluirTurma" method="post">
+                            <select name="turma">
+                                <?=$this->getTurmasProfessor($professor)?>
+                            </select>
+                            <input type="hidden" name="professor" value="<?=$professor->getId()?>">
+                            <input type="submit" value="Excluir Turma">
+                        </form>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cadastro de Alunos</title>
+</head>
+<body>
+    <h1>Cadastro de Alunos</h1>
+    <a href="/tcc">Voltar Index</a>
+    ###
+    <a href="/tcc/aluno/cadastrar">Cadastrar Aluno</a>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <th>Matrícula</th>
+                <th>Nome</th>
+                <th>Data de Nascimento</th>
+                <th>Turma</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($this->alunos as $aluno) : ?>
+                <tr>
+                    <td><?=$aluno->getMatricula()?></td>
+                    <td><?=$aluno->getNome()?></td>
+                    <td><?=$aluno->getDataDeNascimento()?></td>
+                    <td><?=$aluno->getTurma()->getNome()?></td>
+                    <td>
+                        <a title="Editar ID: <?=$aluno->getId()?>" href="/tcc/aluno/editar/id/<?=$aluno->getId()?>">Editar</a>
+                         | 
+                        <a title="Excluir ID: <?=$aluno->getId()?>" href="/tcc/aluno/excluir/id/<?=$aluno->getId()?>">Excluir</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</body>
+</html>

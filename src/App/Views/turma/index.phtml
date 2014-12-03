@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cadastro de Turmas</title>
+</head>
+<body>
+    <h1>Cadastro de Turmas</h1>
+    <a href="/tcc">Voltar Index</a>
+    ###
+    <a href="/tcc/turma/cadastrar">Cadastro de Turma</a>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Acoes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($this->turmas as $turma): ?>
+                <tr>
+                    <td><?=$turma->getId()?></td>
+                    <td><?=$turma->getNome()?></td>
+                    <td>
+                        <a title="Editar ID: <?=$turma->getId()?>" href="/tcc/turma/editar/id/<?=$turma->getId()?>">Editar</a>
+                         | 
+                        <a title="Excluir ID: <?=$turma->getId()?>" href="/tcc/turma/excluir/id/<?=$turma->getId()?>">Excluir</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</body>
+</html>

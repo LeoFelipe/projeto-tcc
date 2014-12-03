@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Edição de Aluno</title>
+</head>
+<body>
+    <a href="/tcc/aluno">Voltar</a>
+    <hr>
+    <form action="/tcc/aluno/editar" method="post">
+        <input type="hidden" name="id" value="<?=$this->aluno->getId()?>">
+        Matrícula: 
+        <input type="text" name="matricula" value="<?=$this->aluno->getMatricula()?>"><br><br>
+        Nome: 
+        <input type="text" name="nome" value="<?=$this->aluno->getNome()?>"><br><br>
+        Data de Nascimento: 
+        <input type="text" name="data_de_nascimento" value="<?=$this->aluno->getDataDeNascimento()?>"><br><br>
+        Turma:
+        <select name="turma">
+            <?=$this->optionsTurma?>
+        </select><br>
+        <input type="submit" value="editar">
+    </form>
+</body>
+</html>
