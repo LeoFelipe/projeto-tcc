@@ -7,6 +7,7 @@ class ProfessorController extends Controller
     public function index()
     {
         $this->professores = $this->model->getRepository()->findAll();
+        var_dump($this->professores);
     }
     
     public function getTurmasProfessor($professor)

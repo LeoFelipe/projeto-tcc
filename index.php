@@ -18,5 +18,7 @@ require_once('bootstrap.php');
 
 use App\Controllers\FrontController as FrontController;
 
-$url = !empty($_GET['url']) ? $_GET['url'] : 'index/index';
+
+$url = !empty($_GET['url']) ? filter_input(INPUT_GET, 'url', FILTER_SANITIZE_STRING) : 'index/index';
+//die($url);
 FrontController::run($url);
