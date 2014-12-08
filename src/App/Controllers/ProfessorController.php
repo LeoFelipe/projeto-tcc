@@ -7,22 +7,17 @@ class ProfessorController extends Controller
     public function index()
     {
         $this->professores = $this->model->getRepository()->findAll();
-        var_dump($this->professores);
-    }
-    
-    public function getTurmasProfessor($professor)
-    {
-        $html = '';
-        foreach($professor->getTurmas() as $turma)
-            $html .= "<option value='{$turma->getId()}'>{$turma->getNome()}</option>";
-        return $html;
     }
     
     public function cadastrar()
     {
         if($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)){
             
-            if ($this->model->save($_POST))
+            $post['matricula'] = filter_input(INPUT_POST, 'matricula', FILTER_SANITIZE_NUMBER_INT);
+            $post['nome'] = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);
+            $post['turmas'] = filter_input(INPUT_POST, 'turmas', FILTER_SANITIZE_NUMBER_INT, FILTER_REQUIRE_ARRAY);
+
+            if ($this->model->save($post))
                 echo '<script>alert("Cadastrado com sucesso!");</script>';
             else
                 echo '<script>alert("Erro ao cadastrar.");</script>';
@@ -35,6 +30,11 @@ class ProfessorController extends Controller
     public function editar()
     {
         if($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)){
+            
+            $post['id'] = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+            $post['matricula'] = filter_input(INPUT_POST, 'matricula', FILTER_SANITIZE_NUMBER_INT);
+            $post['nome'] = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);
+            $post['turmas'] = filter_input(INPUT_POST, 'turmas', FILTER_SANITIZE_NUMBER_INT, FILTER_REQUIRE_ARRAY);
             
             if ($this->model->save($_POST)) {
                 echo '<script>alert("Editado com sucesso!");</script>';
@@ -58,41 +58,27 @@ class ProfessorController extends Controller
     
     public function excluir()
     {
-        if ($id = FrontController::getParams('id')) {
+        if ($id = (int) FrontController::getParams('id')) {
             
             if ($this->model->remover($id)) {
                 echo '<script>alert("Excluído com sucesso!");</script>';
-                echo "<script>window.location = '/tcc/aluno'</script>";
+                echo "<script>window.location = '".PATH_ROOT."professor'</script>";
             } else {
-                echo '<script>alert("Erro ao excluir.");</script>';
-                echo "<script>window.location = '/tcc/aluno'</script>";
+                echo "<script>window.location = '".PATH_ROOT."professor'</script>";
             }
         }
     }
 
     public function excluirTurma()
     {
-        $idProfessor = $_POST['professor'];
-        $idTurma = $_POST['turma'];
+        $post['professorId'] = filter_input(INPUT_POST, 'professorId', FILTER_SANITIZE_NUMBER_INT);
+        $post['turmaId'] = filter_input(INPUT_POST, 'turmaId', FILTER_SANITIZE_NUMBER_INT);
 
-        $em = $GLOBALS['em'];
-
-        $professor = $em->find('App\\Entities\\Professor',$idProfessor);
-        $turma = $em->find('App\\Entities\\Turma',$idTurma);
-        $turma->getProfessores()->removeElement($professor);
-        $professor->getTurmas()->removeElement($turma);
-
-        $em->persist($turma);
-
-        $this->mensagem = 'Turma removida';
-        try
-        {
-            $em->flush();
+        if ($this->model->removerTurma($post)) {
+            echo '<script>alert("Turma Excluída com sucesso!");</script>';
+            echo "<script>window.location = '".PATH_ROOT."professor'</script>";
+        } else {
+            echo "<script>window.location = '".PATH_ROOT."professor'</script>";
         }
-        catch (Exception $e)
-        {
-            $mensagem = 'Ocorreu um erro: ' . $e->getMessage();
-        }
-        $this->professor = $professor;
     }
 }

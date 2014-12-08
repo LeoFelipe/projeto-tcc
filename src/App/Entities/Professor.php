@@ -20,7 +20,7 @@ class Professor
     /** @Column(type="string") **/
     private $nome;
     /**
-     * @ManyToMany(targetEntity="Turma", mappedBy="professores", fetch="EAGER")
+     * @ManyToMany(targetEntity="Turma", mappedBy="professores")
      **/
     private $turmas;
 

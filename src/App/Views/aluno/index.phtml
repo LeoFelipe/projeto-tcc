@@ -6,9 +6,9 @@
 </head>
 <body>
     <h1>Cadastro de Alunos</h1>
-    <a href="/projeto-tcc">Voltar Index</a>
+    <a href="<?=PATH_ROOT?>">Voltar Index</a>
     ###
-    <a href="/projeto-tcc/aluno/cadastrar">Cadastrar Aluno</a>
+    <a href="<?=PATH_ROOT?>aluno/cadastrar">Cadastrar Aluno</a>
     <hr>
     <table>
         <thead>
@@ -28,9 +28,9 @@
                     <td><?=$aluno->getDataDeNascimento()?></td>
                     <td><?=$aluno->getTurma()->getNome()?></td>
                     <td>
-                        <a title="Editar ID: <?=$aluno->getId()?>" href="/projeto-tcc/aluno/editar/id/<?=$aluno->getId()?>">Editar</a>
+                        <a title="Editar ID: <?=$aluno->getId()?>" href="<?=PATH_ROOT?>aluno/editar/id/<?=$aluno->getId()?>">Editar</a>
                          | 
-                        <a title="Excluir ID: <?=$aluno->getId()?>" href="/projeto-tcc/aluno/excluir/id/<?=$aluno->getId()?>">Excluir</a>
+                        <a title="Excluir ID: <?=$aluno->getId()?>" href="<?=PATH_ROOT?>aluno/excluir/id/<?=$aluno->getId()?>">Excluir</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

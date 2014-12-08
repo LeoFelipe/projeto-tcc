@@ -56,7 +56,7 @@ abstract class Routes
 
         } else {
             echo "<script>alert('Parâmetros incorretos!');</script>";
-            \App\Controllers\FrontController::goToHome();
+            echo "<script>window.location = '".PATH_ROOT."'</script>";
         }
     }
 }

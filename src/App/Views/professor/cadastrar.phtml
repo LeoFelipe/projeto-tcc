@@ -5,13 +5,13 @@
 <title>Cadastro de Professor</title>
 </head>
 <body>
-    <a href="/projeto-tcc/professor">Voltar</a>
+    <a href="<?=PATH_ROOT?>professor">Voltar</a>
     <hr>
-    <form action="/professor/cadastrar" method="post">
+    <form action="<?=PATH_ROOT?>professor/cadastrar" method="post">
         Matrícula:
-        <input type="text" name="matricula" value="<?=$this->professor->getMatricula()?>"><br>
+        <input type="text" name="matricula"><br><br>
         Nome:
-        <input type="text" name="nome" value="<?=$this->professor->getNome()?>"><br>
+        <input type="text" name="nome"><br><br>
         Turmas:<br>
         <select name="turmas[]" multiple="multiple">
             <?=$this->optionsTurma?>

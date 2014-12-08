@@ -5,9 +5,9 @@
     <title>Edição de Aluno</title>
 </head>
 <body>
-    <a href="/projeto-tcc/aluno">Voltar</a>
+    <a href="<?=PATH_ROOT?>aluno">Voltar</a>
     <hr>
-    <form action="/projeto-tcc/aluno/editar" method="post">
+    <form action="<?=PATH_ROOT?>aluno/editar" method="post">
         <input type="hidden" name="id" value="<?=$this->aluno->getId()?>">
         Matrícula: 
         <input type="text" name="matricula" value="<?=$this->aluno->getMatricula()?>"><br><br>

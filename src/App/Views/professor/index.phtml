@@ -6,9 +6,9 @@
 </head>
 <body>
     <h1>Cadastro de Professores</h1>
-    <a href="/projeto-tcc">Voltar Index</a>
+    <a href="<?=PATH_ROOT?>">Voltar Index</a>
     ###
-    <a href="/projeto-tcc/professor/cadastrar">Cadastro de Professor</a>
+    <a href="<?=PATH_ROOT?>professor/cadastrar">Cadastro de Professor</a>
     <hr>
     <table>
         <thead>
@@ -23,16 +23,18 @@
                 <tr>
                     <td><?=$professor->getNome()?></td>
                     <td>
-                        <a title="Editar ID: <?=$professor->getId()?>" href="/projeto-tcc/professor/editar/id/<?=$professor->getId()?>">Editar</a>
+                        <a title="Editar ID: <?=$professor->getId()?>" href="<?=PATH_ROOT?>professor/editar/id/<?=$professor->getId()?>">Editar</a>
                          | 
-                        <a title="Excluir ID: <?=$professor->getId()?>" href="/projeto-tcc/professor/excluir/id/<?=$professor->getId()?>">Excluir</a>
+                        <a title="Excluir ID: <?=$professor->getId()?>" href="<?=PATH_ROOT?>professor/excluir/id/<?=$professor->getId()?>">Excluir</a>
                     </td>
                     <td>
-                        <form action="/projeto-tcc/professor/excluirTurma" method="post">
-                            <select name="turma">
-                                <?=$this->getTurmasProfessor($professor)?>
+                        <form action="<?=PATH_ROOT?>professor/excluirTurma" method="post">
+                            <select name="turmaId">
+                                <?php if ($professor->getTurmas()->count() > 0) foreach ($professor->getTurmas() as $turma) : ?>
+                                        <option value="<?=$turma->getId()?>"><?=$turma->getNome()?></option>
+                                <?php endforeach; ?>
                             </select>
-                            <input type="hidden" name="professor" value="<?=$professor->getId()?>">
+                            <input type="hidden" name="professorId" value="<?=$professor->getId()?>">
                             <input type="submit" value="Excluir Turma">
                         </form>
                     </td>

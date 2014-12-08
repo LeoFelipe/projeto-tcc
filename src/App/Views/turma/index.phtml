@@ -6,9 +6,9 @@
 </head>
 <body>
     <h1>Cadastro de Turmas</h1>
-    <a href="/projeto-tcc">Voltar Index</a>
+    <a href="<?=PATH_ROOT?>">Voltar Index</a>
     ###
-    <a href="/projeto-tcc/turma/cadastrar">Cadastro de Turma</a>
+    <a href="<?=PATH_ROOT?>turma/cadastrar">Cadastro de Turma</a>
     <hr>
     <table>
         <thead>
@@ -24,9 +24,9 @@
                     <td><?=$turma->getId()?></td>
                     <td><?=$turma->getNome()?></td>
                     <td>
-                        <a title="Editar ID: <?=$turma->getId()?>" href="/projeto-tcc/turma/editar/id/<?=$turma->getId()?>">Editar</a>
+                        <a title="Editar ID: <?=$turma->getId()?>" href="<?=PATH_ROOT?>turma/editar/id/<?=$turma->getId()?>">Editar</a>
                          | 
-                        <a title="Excluir ID: <?=$turma->getId()?>" href="/projeto-tcc/turma/excluir/id/<?=$turma->getId()?>">Excluir</a>
+                        <a title="Excluir ID: <?=$turma->getId()?>" href="<?=PATH_ROOT?>turma/excluir/id/<?=$turma->getId()?>">Excluir</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

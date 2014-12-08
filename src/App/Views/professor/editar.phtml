@@ -5,9 +5,9 @@
 <title>Edição de Professor</title>
 </head>
 <body>
-    <a href="/projeto-tcc/professor">Voltar</a>
+    <a href="<?=PATH_ROOT?>professor">Voltar</a>
     <hr>
-    <form action="/controller/editar" method="post">
+    <form action="<?=PATH_ROOT?>professor/editar" method="post">
         <input type="hidden" name="id" value="<?=$this->professor->getId()?>"><br>
         Matrícula:
         <input type="text" name="matricula" value="<?=$this->professor->getMatricula()?>"><br>

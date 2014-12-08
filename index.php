@@ -7,6 +7,7 @@ header('Content-type: text/html; charset=utf-8');
 
 define('DS', DIRECTORY_SEPARATOR);
 define('PS', PATH_SEPARATOR);
+define('PATH_ROOT', dirname(htmlspecialchars($_SERVER['SCRIPT_NAME'], ENT_QUOTES, "utf-8")) . DS);
 
 /* Autoload Composer */
 require_once('vendor/autoload.php');

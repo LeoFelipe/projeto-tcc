@@ -13,7 +13,9 @@ class TurmaController extends Controller
     {
         if($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)){
             
-            if ($this->model->save($_POST))
+            $post['nome'] = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);
+            
+            if ($this->model->save($post))
                 echo '<script>alert("Cadastrado com sucesso!");</script>';
             else
                 echo '<script>alert("Erro ao cadastrar.");</script>';
@@ -24,7 +26,10 @@ class TurmaController extends Controller
     {
         if($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)){
             
-            if ($this->model->save($_POST)) {
+            $post['id'] = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+            $post['nome'] = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);
+            
+            if ($this->model->save($post)){
                 echo '<script>alert("Editado com sucesso!");</script>';
                 echo "<script>window.location = 'index'</script>";
             } else {
@@ -48,10 +53,10 @@ class TurmaController extends Controller
             
             if ($this->model->remover($id)) {
                 echo '<script>alert("Excluído com sucesso!");</script>';
-                echo "<script>window.location = '/tcc/turma'</script>";
+                echo "<script>window.location = '".PATH_ROOT."/turma'</script>";
             } else {
                 echo '<script>alert("Erro ao excluir.");</script>';
-                echo "<script>window.location = '/tcc/turma'</script>";
+                echo "<script>window.location = '".PATH_ROOT."/turma'</script>";
             }
         }
     }

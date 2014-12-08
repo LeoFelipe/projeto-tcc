@@ -9,23 +9,8 @@ class Professor extends Model
 {
     private $entityTurma = 'App\Entities\Turma';
     
-    public function getOptionsTurma(ProfEntity $professor)
+    public function getOptionsTurma(ProfEntity $professor = null)
     {
-        $html = '';
-        foreach($turmas as $turma)
-        {
-            $id = ($professor->getTurma() == null) ? 0 : $professor->getTurma()->getId();
-            $selected = ($turma->getId() == $id) ? 'selected' : '';
-            $html .= "<option value='{$turma->getId()}' {$selected}>{$turma->getNome()}</option>";
-        }
-        return $html;
-    }
-    
-    private function _getOptionsTurma(ProfEntity $professor)
-    {
-//        $em = $GLOBALS['em'];
-//        $query = $em->createQuery("select t from App\Entities\Turma t");
-//        $turmas = $query->getResult();
         $turmas = $this->getRepository($this->entityTurma)->findAll();
 
         $turmasProfessor = $professor->getTurmas();
@@ -46,14 +31,16 @@ class Professor extends Model
         return $html;
     }
     
-    public function save(Array $request)
+    public function save(Array $post)
     {
-        if (isset($request['id']))
-            $id = (int) $request['id'];
+        if (isset($post['id']))
+            $id = (int) $post['id'];
         
-        $matricula = $request['matricula'];
-        $nome = $request['nome'];
-        $turmas = (int) $request['turmas'];
+        if (!empty($post['turmas']))
+            $turmas = $post['turmas'];
+        
+        $matricula = $post['matricula'];
+        $nome = $post['nome'];
         
         $this->em->getConnection()->beginTransaction();        
         try
@@ -62,15 +49,16 @@ class Professor extends Model
             $professor->setMatricula($matricula);
             $professor->setNome($nome);
             
-            foreach($turmas as $index => $idTurma) {
-                
-                $turma = $this->getRepository($this->entityTurma)->find($idTurma);
-                if (!$professor->getTurmas()->contains($turma))
-                    $professor->getTurmas()->add($turma);
+            if ($professor->getTurmas()->count() > 0)
+                foreach($turmas as $index => $idTurma) {
 
-                if (!$turma->getProfessores()->contains($professor))
-                    $turma->getProfessores()->add($professor);
-            }
+                    $turma = $this->getRepository($this->entityTurma)->find($idTurma);
+                    if (!$professor->getTurmas()->contains($turma))
+                        $professor->getTurmas()->add($turma);
+
+                    if (!$turma->getProfessores()->contains($professor))
+                        $turma->getProfessores()->add($professor);
+                }
                         
             $this->em->persist($professor);
             $this->em->flush();
@@ -85,37 +73,6 @@ class Professor extends Model
         }
     }
     
-    public function gravar()
-    {
-        $professor = $em->find('App\\Entities\\Professor',$id);
-        $professor = empty($professor) ? new professor() : $professor;
-        $professor->setMatricula($matricula);
-        $professor->setNome($nome);
-
-        foreach($turmas as $index => $turma)
-        {
-            $turma = $em->find('App\\Entities\\Turma',$turma);
-            if (!$professor->getTurmas()->contains($turma))
-                $professor->getTurmas()->add($turma);
-            
-            if (!$turma->getProfessores()->contains($professor))
-                $turma->getProfessores()->add($professor);
-        }
-
-        $em->persist($professor);
-
-        $mensagem = 'Professor gravado com sucesso!';
-        try
-        {
-            $em->flush();
-        }
-        catch(Exception $e)
-        {
-            $mensagem = 'Ocorreu um erro: ' . $e->getMessage();
-        }
-        $this->mensagem = $mensagem;
-    }
-    
     public function remover($id)
     {
         $this->em->getConnection()->beginTransaction();        
@@ -123,6 +80,34 @@ class Professor extends Model
         {
             $aluno = $this->getRepository()->find($id);
             $this->em->remove($aluno);
+            $this->em->flush();
+            $this->em->getConnection()->commit();
+            return true;
+        }
+        catch (Exception $e)
+        {
+            $this->em-->getConnection()->rollback();
+            $this->em-->close();
+            return false;
+        }
+    }
+    
+    public function removerTurma(Array $post)
+    {
+        $professorId = (int) $post['professorId'];
+        $turmaId = (int) $post['turmaId'];
+        
+        $this->em->getConnection()->beginTransaction();        
+        try
+        {
+            $professor = $this->getRepository()->find($professorId);
+            $turma = $this->getRepository($this->entityTurma)->find($turmaId);
+            
+            $turma->getProfessores()->removeElement($professor);
+            $professor->getTurmas()->removeElement($turma);
+
+            $this->em->persist($turma);
+            
             $this->em->flush();
             $this->em->getConnection()->commit();
             return true;
