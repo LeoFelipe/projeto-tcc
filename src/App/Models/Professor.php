@@ -49,7 +49,7 @@ class Professor extends Model
             $professor->setMatricula($matricula);
             $professor->setNome($nome);
             
-            if ($professor->getTurmas()->count() > 0)
+            if (isset($turmas))
                 foreach($turmas as $index => $idTurma) {
 
                     $turma = $this->getRepository($this->entityTurma)->find($idTurma);
