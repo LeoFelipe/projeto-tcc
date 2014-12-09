@@ -7,12 +7,12 @@ use App\Entities\Turma as TurmaEntity;
 class Turma extends Model
 {
     
-    public function save(Array $request)
+    public function save(Array $post)
     {
-        if (isset($request['id']))
-            $id = (int) $request['id'];
+        if (isset($post['id']))
+            $id = (int) $post['id'];
         
-        $nome = $request['nome'];
+        $nome = $post['nome'];
         
         $this->em->getConnection()->beginTransaction();        
         try

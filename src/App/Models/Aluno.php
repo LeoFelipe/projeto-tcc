@@ -23,15 +23,15 @@ class Aluno extends Model
         return $html;
     }
     
-    public function save(Array $request)
+    public function save(Array $post)
     {
-        if (isset($request['id']))
-            $id = (int) $request['id'];
+        if (isset($post['id']))
+            $id = (int) $post['id'];
         
-        $matricula = $request['matricula'];
-        $nome = $request['nome'];
-        $dataDeNascimento = $request['data_de_nascimento'];
-        $idTurma = (int) $request['turma'];
+        $matricula = $post['matricula'];
+        $nome = $post['nome'];
+        $dataDeNascimento = $post['data_de_nascimento'];
+        $idTurma = (int) $post['turma'];
         
         $this->em->getConnection()->beginTransaction();        
         try

@@ -1,9 +1,9 @@
 {
-    "name":             "LeoFelipe/implant",
-    "description":      "Framework para Desenvolvimento de Softwares de Negócios.",
-    "keywords":         ["framework", "implant", "livre"],
+    "name":             "LeoFelipe/projeto-tcc",
+    "description":      "TCC - Desenvolvendo uma aplicação MVC com Composer e Doctrine2",
+    "keywords":         ["doctrine", "composer", "php", "mvc"],
     "homepage":         "https://github.com/LeoFelipe",
-    "time":             "2014-06-01",
+    "time":             "2014-12-03",
     "license":          "MIT",
     "authors": [
         {
